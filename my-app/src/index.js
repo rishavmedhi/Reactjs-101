@@ -30,7 +30,22 @@ const name =
     };
 const element = childrenJSX(name);
 
-ReactDOM.render(
-    element,
-    document.getElementById('root')
-);
+// function that renders a time element
+function update_timer()
+{
+    const timer_elem = (<div>
+        <h1>Sample Timer</h1>
+        <div class="timer">The time is : {new Date().toLocaleTimeString()}</div>
+        </div>);
+    ReactDOM.render(
+        timer_elem,
+        document.getElementById('root')
+    );
+}
+// timeout function that calls the function after a particular time
+setInterval(update_timer,10);
+
+// ReactDOM.render(
+//     element,
+//     document.getElementById('root')
+// );
