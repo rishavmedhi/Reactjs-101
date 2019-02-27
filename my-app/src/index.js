@@ -15,12 +15,20 @@ function conditionFunction(name)
     return <h1>Didn't get any name</h1>;
 }
 
+function childrenJSX(name)
+{
+    return (<div>
+        <h1>Introduction of a person</h1>
+        <b>First name : </b>{name.first_name}<br/>
+        <b>Last name : </b>{name.last_name}</div>);
+}
+
 const name =
     {
         'first_name': 'Rishav',
         'last_name' : 'Medhi'
     };
-const element = conditionFunction(name);
+const element = childrenJSX(name);
 
 ReactDOM.render(
     element,
