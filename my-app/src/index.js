@@ -6,12 +6,19 @@ function formatname(name){
     return name.first_name+' '+name.last_name;
 }
 
+function conditionFunction(name)
+{
+    if(name)
+        return <h1>True conditon by {formatname(name)}</h1>;
+    return <h1>Didn't get any name</h1>;
+}
+
 const name =
     {
         'first_name': 'Rishav',
         'last_name' : 'Medhi'
     };
-const element = <h1>Hello, {formatname(name)}</h1>;
+const element = conditionFunction(name);
 
 ReactDOM.render(
     element,
