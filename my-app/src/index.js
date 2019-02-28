@@ -50,10 +50,22 @@ function Welcome(props)
     return <h1>Hello, {props.name}</h1>
 }
 
+// component that is using other components
+function App()
+{
+    return (
+        <div>
+        <Welcome name="Rishav"/>
+        <Welcome name="John"/>
+        <Welcome name="Mark"/>
+        </div>
+    )
+}
+
 // implementing the custom component
 const element = <Welcome name="Rishav"/>;
 
 ReactDOM.render(
-    element,
+    <App />,
     document.getElementById('root')
 );
