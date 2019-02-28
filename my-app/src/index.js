@@ -28,7 +28,6 @@ const name =
         'first_name': 'Rishav',
         'last_name' : 'Medhi'
     };
-const element = childrenJSX(name);
 
 // function that renders a time element
 function update_timer()
@@ -43,9 +42,18 @@ function update_timer()
     );
 }
 // timeout function that calls the function after a particular time
-setInterval(update_timer,10);
+// setInterval(update_timer,10);
 
-// ReactDOM.render(
-//     element,
-//     document.getElementById('root')
-// );
+// creating a custom component
+function Welcome(props)
+{
+    return <h1>Hello, {props.name}</h1>
+}
+
+// implementing the custom component
+const element = <Welcome name="Rishav"/>;
+
+ReactDOM.render(
+    element,
+    document.getElementById('root')
+);
