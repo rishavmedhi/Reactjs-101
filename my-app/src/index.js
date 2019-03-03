@@ -50,6 +50,13 @@ function Welcome(props)
     return <h1>Hello, {props.name}</h1>
 }
 
+function UserDescription(props)
+{
+    return(<div class="user-description">
+        <h3>{props.description}</h3>
+    </div>)
+}
+
 // component that is using other components
 function App()
 {
@@ -62,10 +69,26 @@ function App()
     )
 }
 
+// component rendering function which uses other smaller components
+function intro_element(props){
+    return (
+        <div>
+            <Welcome name={props.user}/>
+            <div>This is a element rendered using react </div>
+            <UserDescription description={props.description}/>
+        </div>
+    )
+}
+
 // implementing the custom component
 const element = <Welcome name="Rishav"/>;
 
+const user_props = {
+    "user":"Rishav",
+    "description":"Coding in react"
+}
+
 ReactDOM.render(
-    <App />,
+    intro_element(user_props),
     document.getElementById('root')
 );
