@@ -99,7 +99,31 @@ class Clock extends React.Component{
         this.state = {date: new Date()};
     }
 
-    /* for using state, converted this.props to this.state */
+    /* operations to be done after the component has rendered
+    * here timer is setup that triggers time change after a fixed interval */
+    componentDidMount() {
+        /* timer ID */
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    /* operations called when the component is removed */
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    /*  fetches the current time and indicates that state has changed */
+    tick()
+    {
+        this.setState({
+            date : new Date()
+        });
+    }
+
+    /* for using state, converted this.props to this.state
+     * this is called everytime when react detect state change */
     render(){
         return(
             <div>
@@ -109,8 +133,6 @@ class Clock extends React.Component{
         )
     }
 }
-
-setInterval(update_timer,10);
 
 /* removed the props since it has local state */
 ReactDOM.render(
