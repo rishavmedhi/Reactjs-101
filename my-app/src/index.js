@@ -88,15 +88,23 @@ const user_props = {
     "description":"Coding in react"
 }
 
-/* Working with states
-    Starting with converting a component function to class 
+/*
+    Working with states
+    Starting with converting a component function to class
 */
 class Clock extends React.Component{
+    /* for defining the initial state */
+    constructor(props){
+        super(props);
+        this.state = {date: new Date()};
+    }
+
+    /* for using state, converted this.props to this.state */
     render(){
         return(
             <div>
                 <h1>Hello, world!</h1>
-                <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
             </div>
         )
     }
@@ -104,8 +112,9 @@ class Clock extends React.Component{
 
 setInterval(update_timer,10);
 
+/* removed the props since it has local state */
 ReactDOM.render(
-    <Clock date={new Date()} />,
+    <Clock/>,
     document.getElementById('root')
 );
 
