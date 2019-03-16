@@ -148,9 +148,41 @@ function ActionLink() {
         Click Me</a>);
 }
 
+/* event handling by using classes */
+class Toggle extends React.Component
+{
+    /* constructor */
+    constructor(props)
+    {
+        super(props);
+        // initialising the state with initial values
+        this.state  = {isToggleOn : true};
+
+        // This binding is necessary to make `this` work in the callback
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    /* click handler function
+     * changes value of isToggleOn inside the state */
+    handleClick(){
+        this.setState(state => ({
+            isToggleOn: !state.isToggleOn
+        }));
+    }
+
+    /* render function */
+    render(){
+        return(
+            <button onClick={this.handleClick}>
+                {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
+        );
+    }
+}
+
 /* removed the props since it has local state */
 ReactDOM.render(
-    <ActionLink/>,
+    <Toggle/>,
     document.getElementById('root')
 );
 
