@@ -182,12 +182,12 @@ class Toggle extends React.Component
 
 /* conditional rendering
  * creating two types div that are implemented on the basis of params */
-function UserGreeting(props)
+function UserGreeting()
 {
     return(<div>Welcome back!</div>);
 }
 
-function GuestGreeting(props)
+function GuestGreeting()
 {
     return(<div>Welcome, You have to signup</div>);
 }
@@ -203,7 +203,7 @@ function Greeting(props)
 }
 /* removed the props since it has local state */
 ReactDOM.render(
-    <Greeting isLoggedIn={false} />,
+    <Greeting isLoggedIn={true} />,
     document.getElementById('root')
 );
 
