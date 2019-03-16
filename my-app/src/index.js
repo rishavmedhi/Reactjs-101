@@ -201,9 +201,71 @@ function Greeting(props)
     else
         return <GuestGreeting/>;
 }
-/* removed the props since it has local state */
+
+/* simulating logout login using conditional rendering
+*  Login button */
+function LoginButton(props)
+{
+    return(<button onClick={props.onClick}>
+        Login
+        </button>
+    );
+}
+
+/* Logout Button */
+function LogoutButton(props)
+{
+    return(<button onClick={props.onClick}>
+        Logout
+        </button>
+    );
+}
+
+/* stateful LoginControl component */
+class LoginControl extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleLogoutClick = this.handleLogoutClick.bind(this);
+        this.state = {LoggedIn : false};
+    }
+
+    handleLoginClick()
+    {
+        this.setState({LoggedIn : true});
+    }
+
+    handleLogoutClick()
+    {
+        this.setState({LoggedIn : false});
+    }
+
+    render(){
+        const LoggedIn = this.state.LoggedIn;
+        let button;
+
+        if(LoggedIn)
+        {
+            button = <LogoutButton onClick={this.handleLogoutClick}/>
+        }
+        else
+        {
+            button = <LoginButton onClick={this.handleLoginClick}/>
+        }
+
+        return (
+            <div>
+                <Greeting isLoggedIn = {LoggedIn} />
+                {button}
+            </div>
+        );
+    }
+}
+
 ReactDOM.render(
-    <Greeting isLoggedIn={true} />,
+    <LoginControl/>,
     document.getElementById('root')
 );
 
