@@ -134,9 +134,23 @@ class Clock extends React.Component{
     }
 }
 
+/* handling events in React */
+/* simple onclick representation
+*   using functions
+* */
+function ActionLink() {
+    function handleClick(e){
+        e.preventDefault();
+        console.log("click triggered");
+    }
+
+    return(<a href="#" onClick={handleClick}>
+        Click Me</a>);
+}
+
 /* removed the props since it has local state */
 ReactDOM.render(
-    <Clock/>,
+    <ActionLink/>,
     document.getElementById('root')
 );
 
