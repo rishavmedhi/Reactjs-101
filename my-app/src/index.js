@@ -286,9 +286,55 @@ function MailCounter(props)
 /* variable storing unread messages*/
 const unread_messages = ["Hi","Come back!","It's time, let's go","Baazinga"];
 
+/* to remove elements from rendering when not needed */
+/* removing banner by returing null on the basis of props */
+function WarningBanner(props){
+    if(props.warn) {
+        return null;
+    }
+
+    return (
+        <div className="warning">
+            Warning
+        </div>
+    );
+}
+
+class Page extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        /* initial state of warning flag */
+        this.state = {'showWarning':true};
+        /* defining toggle click function */
+        this.handleToggleClick  = this.handleToggleClick.bind(this);
+    }
+
+    /* toggle click function to toggle warning message */
+    handleToggleClick()
+    {
+        this.setState(state => ({
+            showWarning : !state.showWarning
+        }));
+    }
+
+    /* rendering button and changing the button text as per showWarning flag */
+    render(){
+        return(
+            <div>
+                <WarningBanner warn={this.state.showWarning}/>
+                <button onClick={this.handleToggleClick} >
+                    {this.state.showWarning ?'Show':'Hide' }
+                </button>
+            </div>
+        );
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <LoginControl/>,
+    <Page/>,
     document.getElementById('root')
 );
 
