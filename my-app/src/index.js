@@ -246,25 +246,30 @@ class LoginControl extends React.Component
         const LoggedIn = this.state.LoggedIn;
         let button;
 
-        if(LoggedIn)
-        {
-            button = <LogoutButton onClick={this.handleLogoutClick}/>
-        }
-        else
-        {
-            button = <LoginButton onClick={this.handleLoginClick}/>
-        }
+        // if(LoggedIn)
+        // {
+        //     button = <LogoutButton onClick={this.handleLogoutClick}/>
+        // }
+        // else
+        // {
+        //     button = <LoginButton onClick={this.handleLoginClick}/>
+        // }
 
+        /* using conditional operator for rendering */
         return (
             <div>
                 <Greeting isLoggedIn = {LoggedIn} />
-                {button}
+                {
+                    LoggedIn ?
+                        <LogoutButton onClick={this.handleLogoutClick}/> :
+                        <LoginButton onClick={this.handleLoginClick}/>
+                }
             </div>
         );
     }
 }
 
-/* using conditional operators for rendering */
+/* using conditional operators for conditional rendering */
 function MailCounter(props)
 {
     const unreadMessages = props.unread_messages;
@@ -281,8 +286,9 @@ function MailCounter(props)
 /* variable storing unread messages*/
 const unread_messages = ["Hi","Come back!","It's time, let's go","Baazinga"];
 
+/* using conditional operator */
 ReactDOM.render(
-    <MailCounter unread_messages={unread_messages}/>,
+    <LoginControl/>,
     document.getElementById('root')
 );
 
