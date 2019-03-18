@@ -264,8 +264,25 @@ class LoginControl extends React.Component
     }
 }
 
+/* using conditional operators for rendering */
+function MailCounter(props)
+{
+    const unreadMessages = props.unread_messages;
+    return(
+        <div>
+            <h1>Hello!</h1>
+            { unreadMessages.length>0 &&
+                <h2>You have {unreadMessages.length} messages</h2>
+            }
+        </div>
+    )
+}
+
+/* variable storing unread messages*/
+const unread_messages = ["Hi","Come back!","It's time, let's go","Baazinga"];
+
 ReactDOM.render(
-    <LoginControl/>,
+    <MailCounter unread_messages={unread_messages}/>,
     document.getElementById('root')
 );
 
