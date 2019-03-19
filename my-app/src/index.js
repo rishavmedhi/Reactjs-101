@@ -332,9 +332,14 @@ class Page extends React.Component
     }
 }
 
+/* using lists to display list elements */
+const num_list = [1,2,3,4,5];
+const num_list_ui = num_list.map(number =>
+                    <li>{number}</li>);
+
 /* using conditional operator */
 ReactDOM.render(
-    <Page/>,
+    <ul>{num_list_ui}</ul>,
     document.getElementById('root')
 );
 
