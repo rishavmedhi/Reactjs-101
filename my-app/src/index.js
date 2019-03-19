@@ -342,8 +342,11 @@ function NumberLister(props)
 {
     const num_array = props.num_list;
 
+    /* adding key to remove the warning */
     const list_elements = num_array.map(number =>
-    <li>{number}</li>);
+    <li key={number.toString()}>
+        {number}
+    </li>);
 
     return (
         <ul>{list_elements}</ul>
