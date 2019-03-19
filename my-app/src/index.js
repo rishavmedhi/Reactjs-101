@@ -337,9 +337,22 @@ const num_list = [1,2,3,4,5];
 const num_list_ui = num_list.map(number =>
                     <li>{number}</li>);
 
+/* function that accepts array of numbers and returns list of numbers */
+function NumberLister(props)
+{
+    const num_array = props.num_list;
+
+    const list_elements = num_array.map(number =>
+    <li>{number}</li>);
+
+    return (
+        <ul>{list_elements}</ul>
+    )
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <ul>{num_list_ui}</ul>,
+    <NumberLister num_list = {num_list}/>,
     document.getElementById('root')
 );
 
