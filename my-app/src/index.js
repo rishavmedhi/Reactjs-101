@@ -364,9 +364,46 @@ function NumberLister(props)
     )
 }
 
+/* function showing keys should be unqiue among siblings
+* created two list elements that use the same array id
+*/
+function Blog(props)
+{
+    const sidebar = (
+        <ul>
+            {props.posts.map((post) =>
+                <li>
+                    {post.title}
+                </li>
+            )}
+        </ul>
+    );
+
+    const content = props.posts.map((post) =>
+        <div key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+        </div>
+    );
+
+    return (
+        <div>
+            {sidebar}
+            <hr/>
+            {content}
+        </div>
+    );
+}
+
+/* data for the required function */
+const posts = [
+    {'id':1,'title':'Captain Marvel','content':'Is Captain Marvel the most powerful??'},
+    {'id':2,'title':'Avengers Endgame','content':'Is it really endgame for Avengers??'}
+];
+
 /* using conditional operator */
 ReactDOM.render(
-    <NumberLister num_list = {num_list}/>,
+    <Blog posts={posts}/>,
     document.getElementById('root')
 );
 
