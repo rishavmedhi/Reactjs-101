@@ -354,13 +354,19 @@ function NumberLister(props)
     /* adding key to remove the warning
     * using index (But not advisable as it leads to errors)
     * correct usage of keys with component elements */
-    const list_elements = num_array.map((number,index) =>
-    <NumberListElement key={number.toString()}
-    value={number}
-    />);
+    // const list_elements = num_array.map((number,index) =>
+    // <NumberListElement key={number.toString()}
+    // value={number}
+    // />);
 
+    /* embedding map() in JSX */
     return (
-        <ul>{list_elements}</ul>
+        <ul>{num_array.map((number)=>
+            <NumberListElement
+                key={number.toString()}
+                value={number}
+            />
+        )}</ul>
     )
 }
 
@@ -403,7 +409,7 @@ const posts = [
 
 /* using conditional operator */
 ReactDOM.render(
-    <Blog posts={posts}/>,
+    <NumberLister num_list={num_list}/>,
     document.getElementById('root')
 );
 
