@@ -337,17 +337,27 @@ const num_list = [1,2,3,4,5];
 const num_list_ui = num_list.map(number =>
                     <li>{number}</li>);
 
+/* to render li elements
+* not using keys here as not required (As said by react docs )*/
+function NumberListElement(props)
+{
+    return(
+        <li>{props.value}</li>
+    );
+}
+
 /* function that accepts array of numbers and returns list of numbers */
 function NumberLister(props)
 {
     const num_array = props.num_list;
 
     /* adding key to remove the warning
-    * using index (But not advisable as it leads to errors)*/
+    * using index (But not advisable as it leads to errors)
+    * correct usage of keys with component elements */
     const list_elements = num_array.map((number,index) =>
-    <li key={index}>
-        {number}
-    </li>);
+    <NumberListElement key={number.toString()}
+    value={number}
+    />);
 
     return (
         <ul>{list_elements}</ul>
