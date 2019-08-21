@@ -407,7 +407,8 @@ const posts = [
     {'id':2,'title':'Avengers Endgame','content':'Is it really endgame for Avengers??'}
 ];
 
-/* making forms in React */
+/* making forms in React
+* CONTROLLED COMPONENT : since the state of the compenent is also the state of the UI elements */
 class Nameform extends React.Component{
     constructor(props){
         super(props);
