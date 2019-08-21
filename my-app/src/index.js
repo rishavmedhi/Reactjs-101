@@ -407,9 +407,51 @@ const posts = [
     {'id':2,'title':'Avengers Endgame','content':'Is it really endgame for Avengers??'}
 ];
 
+/* making forms in React */
+class Nameform extends React.Component{
+    constructor(props){
+        super(props);
+        /* the react state is going to store the values */
+        this.state = {value:''};
+
+        /* binding the onchange function */
+        this.handleChange = this.handleChange.bind(this);
+        /* binding the onsubmit function */
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    /* onchange handling function
+    * takes the value from input and sets it in the state */
+    handleChange(event){
+        this.setState({value:event.target.value});
+    }
+
+    /* on submit function
+    * displays the function that is present in the state as an alert */
+    handleSubmit(event){
+        alert("This name was submitted:"+this.state.value);
+        event.preventDefault();
+    }
+
+    /* rendering the form UI
+    * input tag : stores the value that is set in the react state */
+    render(){
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <NumberLister num_list={num_list}/>,
+    <Nameform/>,
     document.getElementById('root')
 );
 
