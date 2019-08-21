@@ -532,9 +532,68 @@ class FavFruit extends React.Component
 
 }
 
+/* Form with multiple elements */
+class Reservation extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event)
+    {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name] : value
+        });
+    }
+
+    /* when referring to multiple elements
+    * make sure that the name and the state element is same
+    * every input element is then referred to it by it's name parameter */
+    render()
+    {
+        return(
+            <form>
+                <label>
+                    Is Going:
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+                </label>
+
+                <br />
+
+                <label>
+                    Number of Guests:
+                    <input
+                        type="text"
+                        name="numberOfGuests"
+                        value={this.state.numberOfGuests}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+
+            </form>
+        )
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <FavFruit/>,
+    <Reservation/>,
     document.getElementById('root')
 );
 
