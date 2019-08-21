@@ -450,6 +450,7 @@ class Nameform extends React.Component{
     }
 }
 
+/* Form that uses textarea */
 class EssayForm extends React.Component
 {
     constructor(props)
@@ -486,9 +487,54 @@ class EssayForm extends React.Component
     }
 }
 
+/* Form that uses select */
+class FavFruit extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {value:'Coconut'};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event)
+    {
+        this.setState({value:event.target.value});
+    }
+
+    handleSubmit(event)
+    {
+        alert("The user selected: "+this.state.value);
+        event.preventDefault();
+    }
+
+    render(){
+
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Select your favourite fruit
+                    <select onChange={this.handleChange} value={this.state.value}>
+                        <option value="Coconut">Coconut</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Mango">Mango</option>
+                    </select>
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        )
+    }
+
+
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <EssayForm/>,
+    <FavFruit/>,
     document.getElementById('root')
 );
 
