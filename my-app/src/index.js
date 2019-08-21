@@ -407,9 +407,193 @@ const posts = [
     {'id':2,'title':'Avengers Endgame','content':'Is it really endgame for Avengers??'}
 ];
 
+/* making forms in React
+* CONTROLLED COMPONENT : since the state of the compenent is also the state of the UI elements */
+class Nameform extends React.Component{
+    constructor(props){
+        super(props);
+        /* the react state is going to store the values */
+        this.state = {value:''};
+
+        /* binding the onchange function */
+        this.handleChange = this.handleChange.bind(this);
+        /* binding the onsubmit function */
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    /* onchange handling function
+    * takes the value from input and sets it in the state */
+    handleChange(event){
+        this.setState({value:event.target.value});
+    }
+
+    /* on submit function
+    * displays the function that is present in the state as an alert */
+    handleSubmit(event){
+        alert("This name was submitted:"+this.state.value);
+        event.preventDefault();
+    }
+
+    /* rendering the form UI
+    * input tag : stores the value that is set in the react state */
+    render(){
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+}
+
+/* Form that uses textarea */
+class EssayForm extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {value:'Please enter the content of the Essay here'}
+
+        /* binding the onchange function */
+        this.handleChange = this.handleChange.bind(this);
+        /* binding the onsubmit function */
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({value:event.target.value});
+    }
+
+    handleSubmit(event){
+        alert("This essay submitted:"+this.state.value);
+        event.preventDefault();
+    }
+
+    render(){
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Essay
+                    <textarea value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+}
+
+/* Form that uses select */
+class FavFruit extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {value:'Coconut'};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event)
+    {
+        this.setState({value:event.target.value});
+    }
+
+    handleSubmit(event)
+    {
+        alert("The user selected: "+this.state.value);
+        event.preventDefault();
+    }
+
+    render(){
+
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Select your favourite fruit
+                    <select onChange={this.handleChange} value={this.state.value}>
+                        <option value="Coconut">Coconut</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Mango">Mango</option>
+                    </select>
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        )
+    }
+
+
+}
+
+/* Form with multiple elements */
+class Reservation extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(event)
+    {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name] : value
+        });
+    }
+
+    /* when referring to multiple elements
+    * make sure that the name and the state element is same
+    * every input element is then referred to it by it's name parameter */
+    render()
+    {
+        return(
+            <form>
+                <label>
+                    Is Going:
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+                </label>
+
+                <br />
+
+                <label>
+                    Number of Guests:
+                    <input
+                        type="text"
+                        name="numberOfGuests"
+                        value={this.state.numberOfGuests}
+                        onChange={this.handleInputChange}
+                    />
+                </label>
+
+            </form>
+        )
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <NumberLister num_list={num_list}/>,
+    <Reservation/>,
     document.getElementById('root')
 );
 
