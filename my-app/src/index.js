@@ -450,9 +450,45 @@ class Nameform extends React.Component{
     }
 }
 
+class EssayForm extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {value:'Please enter the content of the Essay here'}
+
+        /* binding the onchange function */
+        this.handleChange = this.handleChange.bind(this);
+        /* binding the onsubmit function */
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({value:event.target.value});
+    }
+
+    handleSubmit(event){
+        alert("This essay submitted:"+this.state.value);
+        event.preventDefault();
+    }
+
+    render(){
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Essay
+                    <textarea value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <Nameform/>,
+    <EssayForm/>,
     document.getElementById('root')
 );
 
