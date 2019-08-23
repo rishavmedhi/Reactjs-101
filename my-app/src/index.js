@@ -600,9 +600,43 @@ function BoilingVerdict(props)
     return <p>The water would not boil</p>
 }
 
+/* A module that displays boiling verdict depending upon temperature */
+class Calculator extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {temperature:''};
+    }
+
+    handleChange(event)
+    {
+        this.setState({temperature:event.target.value});
+    }
+
+    render()
+    {
+        const temperature = this.state.temperature;
+        return (
+            <fieldset>
+                <legend>Enter the temperature in Celcius</legend>
+                <input
+                    value={temperature}
+                    onChange={this.handleChange}
+                    type="number"
+                />
+                <BoilingVerdict
+                    celcius={parseFloat(temperature)}
+                />
+            </fieldset>
+        )
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <Reservation/>,
+    <Calculator/>,
     document.getElementById('root')
 );
 
