@@ -715,8 +715,7 @@ function tryConvert(temperature, convert){
 function FancyBorder(props){
     return(
         <div className={'FancyBorder FancyBorder-'+props.color} >
-            {props.top}
-            {props.bottom}
+            {props.children}
         </div>
     )
 }
@@ -743,10 +742,11 @@ function WelcomeDialog(){
 function Dialog(props)
 {
     return(
-        <div>
-            <h1>{props.heading}</h1>
-            <p>{props.text}</p>
-        </div>
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title">{props.heading}</h1>
+            <p className={"Dialog-message"}>{props.message}</p>
+            {props.children}
+        </FancyBorder>
     );
 }
 
@@ -760,9 +760,43 @@ function FancyDialog(props){
     );
 }
 
+class SignUpDialog extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.HandleChange = this.HandleChange.bind(this);
+        this.HandleSignup = this.HandleSignup.bind(this);
+        this.state = {login:''}
+    }
+
+    render() {
+        return (
+            <Dialog title="Mars Exploration Program"
+             title="How should we refer you?">
+                 <input value={this.state.login}
+                    onChange={this.HandleChange}
+                 />
+
+                 <button onClick={this.HandleSignup}>
+                     Sign Me Up!
+                 </button>
+            </Dialog>
+        )
+    }
+
+    HandleChange(e){
+        this.setState({login:e.target.value});
+    }
+
+    HandleSignup(e) {
+        alert(`Welcome abroad, ${this.state.login}!`);
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <FancyDialog/>,
+    <SignUpDialog/>,
     document.getElementById('root')
 );
 
