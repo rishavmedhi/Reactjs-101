@@ -714,21 +714,26 @@ function tryConvert(temperature, convert){
 function FancyBorder(props){
     return(
         <div className={'FancyBorder FancyBorder-'+props.color} >
-            {props.children}
+            {props.top}
+            {props.bottom}
         </div>
     )
 }
 
+function FancyHeading(props){
+    return(
+        <h1 class="heading">Hello!</h1>
+    );
+}
+
+function Fancytext(props){
+    return(
+        <p>Welcome to this page!</p>
+    )
+}
 function WelcomeDialog(){
     return (
-        <FancyBorder color="blue">
-            <h1 class="Dialog-title">
-                Welcome!
-            </h1>
-            <p class="Dialog-text">
-                Welcome to this page!
-            </p>
-        </FancyBorder>
+        <FancyBorder color="blue" top={<FancyHeading/>} bottom={<Fancytext/>} />
     );
 }
 
