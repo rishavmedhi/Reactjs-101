@@ -711,9 +711,30 @@ function tryConvert(temperature, convert){
     return rounded.toString();
 }
 
+function FancyBorder(props){
+    return(
+        <div className={'FancyBorder FancyBorder-'+props.color} >
+            {props.children}
+        </div>
+    )
+}
+
+function WelcomeDialog(){
+    return (
+        <FancyBorder color="blue">
+            <h1 class="Dialog-title">
+                Welcome!
+            </h1>
+            <p class="Dialog-text">
+                Welcome to this page!
+            </p>
+        </FancyBorder>
+    );
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <Calculator/>,
+    <WelcomeDialog/>,
     document.getElementById('root')
 );
 
