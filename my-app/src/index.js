@@ -711,6 +711,7 @@ function tryConvert(temperature, convert){
     return rounded.toString();
 }
 
+/* CONTAINTMENT */
 function FancyBorder(props){
     return(
         <div className={'FancyBorder FancyBorder-'+props.color} >
@@ -737,9 +738,31 @@ function WelcomeDialog(){
     );
 }
 
+/* SPECIALISATION */
+// creating a basic function
+function Dialog(props)
+{
+    return(
+        <div>
+            <h1>{props.heading}</h1>
+            <p>{props.text}</p>
+        </div>
+    );
+}
+
+/* creating a special case of the basic function */
+function FancyDialog(props){
+    return(
+        <Dialog
+            heading="hello"
+            text="this is some text"
+        />
+    );
+}
+
 /* using conditional operator */
 ReactDOM.render(
-    <WelcomeDialog/>,
+    <FancyDialog/>,
     document.getElementById('root')
 );
 
