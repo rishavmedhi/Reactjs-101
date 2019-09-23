@@ -805,7 +805,7 @@ class ProductRow extends React.Component
         const status = this.props.stocked ?'':'red';
         return(
             <tr>
-                <div className={'ProductRow '+status}>{props.name}</div>
+                <div className={'ProductRow '+status}>{this.props.name}</div>
             </tr>
         );
     }
