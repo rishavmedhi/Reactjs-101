@@ -794,6 +794,23 @@ class SignUpDialog extends React.Component
     }
 }
 
+/* CREATING A FIRST MODULE USING REACT */
+class ProductRow extends React.Component
+{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        const status = this.props.stocked ?'':'red';
+        return(
+            <tr>
+                <div className={'ProductRow '+status}>{props.name}</div>
+            </tr>
+        );
+    }
+}
+
 /* using conditional operator */
 ReactDOM.render(
     <SignUpDialog/>,
