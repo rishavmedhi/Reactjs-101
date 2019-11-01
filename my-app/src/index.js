@@ -815,7 +815,9 @@ class ProductCategoryRow extends React.Component
         const category = this.props.category;
 
         return (
-          <th className='ProductCategoryRow' ProductCategory={category}>{category}</th>
+          <tr>
+            <th colSpan="2" className='ProductCategoryRow'>{category}</th>
+          </tr>
         );
     }
 }
@@ -841,7 +843,8 @@ class ProductTable extends React.Component
                     product={product}
                     key={product.name}
                 />
-            )
+            );
+            lastCategory = product.category;
         });
 
         return(
