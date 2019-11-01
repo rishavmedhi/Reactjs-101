@@ -799,10 +799,11 @@ class ProductRow extends React.Component
 {
     render(){
         const product = this.props.product;
-        const status = product.stocked ?'':'red';
+        const name = product.stocked ? product.name : <span style={{color:'red'}}>{product.name}</span>;
+
         return(
             <tr>
-                <td className={'ProductRow '+status}>{product.name}</td>
+                <td className='ProductRow'>{name}</td>
                 <td> { product.price } </td>
             </tr>
         );
