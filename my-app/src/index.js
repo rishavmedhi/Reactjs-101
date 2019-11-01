@@ -895,7 +895,7 @@ const PRODUCTS = [
 
 /* using conditional operator */
 ReactDOM.render(
-    <SignUpDialog/>,
+    <FilterableProductTable products={PRODUCTS}/>,
     document.getElementById('root')
 );
 
