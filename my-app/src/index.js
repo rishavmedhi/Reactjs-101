@@ -860,10 +860,13 @@ class SearchBar extends React.Component
 {
     render(){
         return(
-            <div className='SearchBar'>
-                <input className='SearchField' type='text' />
+            <form className='SearchBar'>
+                <input className='SearchField' type='text' placeholder='Search .. '/>
+                <p>
                 <input className='StockCheckbox' type='checkbox' />
-            </div>
+                    Only show products in stock
+                </p>
+            </form>
         )
     }
 }
