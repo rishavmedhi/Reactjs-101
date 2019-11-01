@@ -797,17 +797,85 @@ class SignUpDialog extends React.Component
 /* CREATING A FIRST MODULE USING REACT */
 class ProductRow extends React.Component
 {
-    constructor(props){
-        super(props);
-    }
-
     render(){
-        const status = this.props.stocked ?'':'red';
+        const product = this.props.product;
+        const status = product.stocked ?'':'red';
         return(
             <tr>
-                <div className={'ProductRow '+status}>{this.props.name}</div>
+                <td className={'ProductRow '+status}>{product.name}</td>
+                <td> { product.price } </td>
             </tr>
         );
+    }
+}
+
+class ProductCategoryRow extends React.Component
+{
+    render(){
+        const category = this.props.category;
+
+        return (
+          <th className='ProductCategoryRow' ProductCategory={category}>{category}</th>
+        );
+    }
+}
+
+class ProductTable extends React.Component
+{
+    render(){
+        const rows = [];
+        let lastCategory = null;
+
+        this.props.products.forEach((product)=> {
+            /* adding category row if this row doesn't belong to last row's category */
+            if(product.category!==lastCategory){
+                rows.push(
+                    <ProductCategoryRow
+                    category = {product.category}
+                    key = {product.category}
+                    />
+                )
+            }
+            rows.push(
+                <ProductRow
+                    product={product}
+                    key={product.name}
+                />
+            )
+        });
+
+        return(
+          <table className='ProductTable'>
+              <thead>
+                  <th>Name</th>
+                  <th>Price</th>
+              </thead>
+              <tbody>{rows}</tbody>
+          </table>
+        );
+    }
+}
+
+class SearchBar extends React.Component
+{
+    render(){
+        return(
+            <div className='SearchBar'>
+                <input className='SearchField' type='text' />
+                <input className='StockCheckbox' type='checkbox' />
+            </div>
+        )
+    }
+}
+
+class FilterableProductTable extends React.Component
+{
+    render() {
+        return(
+            <div className='FilterableProductTable'>
+
+            </div>
+        )
     }
 }
 
