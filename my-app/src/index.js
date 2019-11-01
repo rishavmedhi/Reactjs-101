@@ -877,11 +877,17 @@ class SearchBar extends React.Component
 
 class FilterableProductTable extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {filterText: '', inStockonly: false};
+    }
+
     render() {
         return(
             <div className='FilterableProductTable'>
-            <SearchBar/>
-            <ProductTable products = {this.props.products }/>
+            <SearchBar filterText={this.state.filterText} inStockonly={this.state.inStockonly} />
+            <ProductTable products = {this.props.products } filterText={this.state.filterText} inStockonly={this.state.inStockonly} />
             </div>
         )
     }
