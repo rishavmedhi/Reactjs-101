@@ -876,7 +876,8 @@ class FilterableProductTable extends React.Component
     render() {
         return(
             <div className='FilterableProductTable'>
-
+            <SearchBar/>
+            <ProductTable products = {this.props.products }/>
             </div>
         )
     }
