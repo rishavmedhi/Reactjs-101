@@ -863,11 +863,14 @@ class ProductTable extends React.Component
 class SearchBar extends React.Component
 {
     render(){
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockonly;
+
         return(
             <form className='SearchBar'>
-                <input className='SearchField' type='text' placeholder='Search .. '/>
+                <input className='SearchField' type='text' placeholder='Search .. ' value={filterText}/>
                 <p>
-                <input className='StockCheckbox' type='checkbox' />
+                <input className='StockCheckbox' type='checkbox' checked={inStockOnly}/>
                     Only show products in stock
                 </p>
             </form>
