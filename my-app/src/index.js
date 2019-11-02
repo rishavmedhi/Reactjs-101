@@ -826,10 +826,19 @@ class ProductCategoryRow extends React.Component
 class ProductTable extends React.Component
 {
     render(){
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockonly;
+
         const rows = [];
         let lastCategory = null;
 
         this.props.products.forEach((product)=> {
+            if(product.name!==filterText)
+                return;
+
+            if(inStockOnly && !product.stocked)
+                return;
+
             /* adding category row if this row doesn't belong to last row's category */
             if(product.category!==lastCategory){
                 rows.push(
