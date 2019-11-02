@@ -871,15 +871,29 @@ class ProductTable extends React.Component
 
 class SearchBar extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.HandleInputChange = this.HandleInputChange.bind(this);
+        this.HandleCheckChange = this.HandleCheckChange.bind(this);
+    }
+
+    HandleInputChange(e){
+        this.props.onInputChange(e.target.value);
+    }
+
+    HandleCheckChange(e){
+        this.props.onCheckChange(e.target.checked);
+    }
     render(){
         const filterText = this.props.filterText;
         const inStockOnly = this.props.inStockonly;
 
         return(
             <form className='SearchBar'>
-                <input className='SearchField' type='text' placeholder='Search .. ' value={filterText}/>
+                <input className='SearchField' type='text' placeholder='Search .. ' value={this.props.filterText} onChange={this.HandleInputChange}/>
                 <p>
-                <input className='StockCheckbox' type='checkbox' checked={inStockOnly}/>
+                <input className='StockCheckbox' type='checkbox' checked={this.props.inStockonly} onChange={this.HandleCheckChange}/>
                     Only show products in stock
                 </p>
             </form>
@@ -893,12 +907,23 @@ class FilterableProductTable extends React.Component
     {
         super(props);
         this.state = {filterText: '', inStockonly: false};
+        this.HandleInputChange = this.HandleInputChange.bind(this);
+        this.HandleCheckChange = this.HandleCheckChange.bind(this);
+    }
+
+    HandleInputChange(filterText)
+    {
+        this.setState({filterText:filterText});
+    }
+    HandleCheckChange(inStockonly)
+    {
+        this.setState({inStockonly:inStockonly});
     }
 
     render() {
         return(
             <div className='FilterableProductTable'>
-            <SearchBar filterText={this.state.filterText} inStockonly={this.state.inStockonly} />
+            <SearchBar filterText={this.state.filterText} inStockonly={this.state.inStockonly} onInputChange={this.HandleInputChange} onCheckChange={this.HandleCheckChange}/>
             <ProductTable products = {this.props.products } filterText={this.state.filterText} inStockonly={this.state.inStockonly} />
             </div>
         )
