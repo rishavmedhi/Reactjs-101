@@ -591,9 +591,358 @@ class Reservation extends React.Component
     }
 }
 
+/* function to determine if water will boil in given input temperature */
+function BoilingVerdict(props)
+{
+    if(props.celcius>=100) {
+        return <p>The water would boil</p>
+    }
+    return <p>The water would not boil</p>
+}
+
+/* A module that displays boiling verdict depending upon temperature */
+class Calculator extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.state = {temperature:''};
+
+        // creating separate event handlers for various units
+        this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+        this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+        this.state = {temperature:'',scale:'c'};
+    }
+
+    // handleChange(event)
+    // {
+    //     this.setState({temperature:event.target.value});
+    // }
+
+    handleCelsiusChange(temperature)
+    {
+        this.setState({scale:'c',temperature});
+    }
+
+    handleFahrenheitChange(temperature)
+    {
+        this.setState({scale:'f',temperature});
+    }
+
+    render()
+    {
+        const scale = this.state.scale;
+        const temperature = this.state.temperature;
+        const celsius = scale=='f'? tryConvert(temperature,toCelcius) : temperature;
+        const fahrenheit = scale=='c'? tryConvert(temperature,toFahrenheit) : temperature;
+
+        return (
+            <div>
+                <TemperatureInput
+                    scale='c'
+                    temperature={celsius}
+                    onTemperatureChange = {this.handleCelsiusChange}
+                />
+                <TemperatureInput
+                    scale='f'
+                    temperature={fahrenheit}
+                    onTemperatureChange = {this.handleFahrenheitChange}
+                />
+
+                <BoilingVerdict
+                    celcius={parseFloat(celsius)}
+                />
+            </div>
+        )
+    }
+}
+
+const scaleNames = {
+    c: 'Celcius',
+    f: 'Fahrenheit'
+};
+
+class TemperatureInput extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {temperature : ''};
+    }
+
+    handleChange(e)
+    {
+        // this.setState({temperature : e.target.value});
+        this.props.onTemperatureChange(e.target.value);
+    }
+
+    render()
+    {
+        // const temperature = this.state.temperature;
+        const temperature  = this.props.temperature;
+        const scale = this.props.scale;
+
+        return(
+            <fieldset>
+                <legend>Enter the temperature in {scaleNames[scale]}</legend>
+                <input value={temperature}
+                        onChange={this.handleChange} />
+            </fieldset>
+        )
+    }
+}
+
+function toCelcius(fahrenheit){
+    return (fahrenheit-32)*5/9;
+}
+
+function toFahrenheit(celcius) {
+    return (celcius-9/5) + 32;
+}
+
+function tryConvert(temperature, convert){
+    const input = parseFloat(temperature);
+    if(Number.isNaN(input)){
+        return '';
+    }
+
+    const output = convert(input);
+    const rounded = Math.round(output*1000) / 1000;
+    return rounded.toString();
+}
+
+/* CONTAINTMENT */
+function FancyBorder(props){
+    return(
+        <div className={'FancyBorder FancyBorder-'+props.color} >
+            {props.children}
+        </div>
+    )
+}
+
+function FancyHeading(props){
+    return(
+        <h1 class="heading">Hello!</h1>
+    );
+}
+
+function Fancytext(props){
+    return(
+        <p>Welcome to this page!</p>
+    )
+}
+function WelcomeDialog(){
+    return (
+        <FancyBorder color="blue" top={<FancyHeading/>} bottom={<Fancytext/>} />
+    );
+}
+
+/* SPECIALISATION */
+// creating a basic function
+function Dialog(props)
+{
+    return(
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title">{props.heading}</h1>
+            <p className={"Dialog-message"}>{props.message}</p>
+            {props.children}
+        </FancyBorder>
+    );
+}
+
+/* creating a special case of the basic function */
+function FancyDialog(props){
+    return(
+        <Dialog
+            heading="hello"
+            text="this is some text"
+        />
+    );
+}
+
+class SignUpDialog extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.HandleChange = this.HandleChange.bind(this);
+        this.HandleSignup = this.HandleSignup.bind(this);
+        this.state = {login:''}
+    }
+
+    render() {
+        return (
+            <Dialog title="Mars Exploration Program"
+             title="How should we refer you?">
+                 <input value={this.state.login}
+                    onChange={this.HandleChange}
+                 />
+
+                 <button onClick={this.HandleSignup}>
+                     Sign Me Up!
+                 </button>
+            </Dialog>
+        )
+    }
+
+    HandleChange(e){
+        this.setState({login:e.target.value});
+    }
+
+    HandleSignup(e) {
+        alert(`Welcome abroad, ${this.state.login}!`);
+    }
+}
+
+/* CREATING A FIRST MODULE USING REACT */
+class ProductRow extends React.Component
+{
+    render(){
+        const product = this.props.product;
+        const name = product.stocked ? product.name : <span style={{color:'red'}}>{product.name}</span>;
+
+        return(
+            <tr>
+                <td className='ProductRow'>{name}</td>
+                <td> { product.price } </td>
+            </tr>
+        );
+    }
+}
+
+class ProductCategoryRow extends React.Component
+{
+    render(){
+        const category = this.props.category;
+
+        return (
+          <tr>
+            <th colSpan="2" className='ProductCategoryRow'>{category}</th>
+          </tr>
+        );
+    }
+}
+
+class ProductTable extends React.Component
+{
+    render(){
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockonly;
+
+        const rows = [];
+        let lastCategory = null;
+
+        this.props.products.forEach((product)=> {
+            if(product.name.indexOf(filterText)=== -1)
+                return;
+
+            if(inStockOnly && !product.stocked)
+                return;
+
+            /* adding category row if this row doesn't belong to last row's category */
+            if(product.category!==lastCategory){
+                rows.push(
+                    <ProductCategoryRow
+                    category = {product.category}
+                    key = {product.category}
+                    />
+                )
+            }
+            rows.push(
+                <ProductRow
+                    product={product}
+                    key={product.name}
+                />
+            );
+            lastCategory = product.category;
+        });
+
+        return(
+          <table className='ProductTable'>
+              <thead>
+                  <th>Name</th>
+                  <th>Price</th>
+              </thead>
+              <tbody>{rows}</tbody>
+          </table>
+        );
+    }
+}
+
+class SearchBar extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.HandleInputChange = this.HandleInputChange.bind(this);
+        this.HandleCheckChange = this.HandleCheckChange.bind(this);
+    }
+
+    HandleInputChange(e){
+        this.props.onInputChange(e.target.value);
+    }
+
+    HandleCheckChange(e){
+        this.props.onCheckChange(e.target.checked);
+    }
+    render(){
+        const filterText = this.props.filterText;
+        const inStockOnly = this.props.inStockonly;
+
+        return(
+            <form className='SearchBar'>
+                <input className='SearchField' type='text' placeholder='Search .. ' value={this.props.filterText} onChange={this.HandleInputChange}/>
+                <p>
+                <input className='StockCheckbox' type='checkbox' checked={this.props.inStockonly} onChange={this.HandleCheckChange}/>
+                    Only show products in stock
+                </p>
+            </form>
+        )
+    }
+}
+
+class FilterableProductTable extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.state = {filterText: '', inStockonly: false};
+        this.HandleInputChange = this.HandleInputChange.bind(this);
+        this.HandleCheckChange = this.HandleCheckChange.bind(this);
+    }
+
+    HandleInputChange(filterText)
+    {
+        this.setState({filterText:filterText});
+    }
+    HandleCheckChange(inStockonly)
+    {
+        this.setState({inStockonly:inStockonly});
+    }
+
+    render() {
+        return(
+            <div className='FilterableProductTable'>
+            <SearchBar filterText={this.state.filterText} inStockonly={this.state.inStockonly} onInputChange={this.HandleInputChange} onCheckChange={this.HandleCheckChange}/>
+            <ProductTable products = {this.props.products } filterText={this.state.filterText} inStockonly={this.state.inStockonly} />
+            </div>
+        )
+    }
+}
+
+/* products data array */
+const PRODUCTS = [
+    {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+    {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+    {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+    {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+    {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+    {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+];
+
 /* using conditional operator */
 ReactDOM.render(
-    <Reservation/>,
+    <FilterableProductTable products={PRODUCTS}/>,
     document.getElementById('root')
 );
 
